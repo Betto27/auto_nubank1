@@ -118,14 +118,47 @@ Then sou direcionado para pagina de deposito
 
 
 # Page_tranferir
+#Validar botão voltar na pagina Transferencia
+Given que acesso a pagina de Transferencia
+    Wait until element is visible   xpath=(//android.view.ViewGroup[@class="android.view.ViewGroup"])[17]   10
+    CLick element    xpath=(//android.view.ViewGroup[@class="android.view.ViewGroup"])[17]
+    Capture page screenshot
+
+When clico no botão Voltar do celular
+    Sleep    1
+    Press Keycode   4
+
+Then o sistema retorna para pagina inicial do app
+    Sleep    1
+    Wait until element is visible    accessibility_id=card-hero     10
+    Page Should Contain Element     accessibility_id=card-hero
+    Capture page screenshot
+
+#Validar botão voltar na pagina Transferencia
+When clico no botão Fechar
+    Sleep    1
+    Wait Until Element is Visible   xpath=//android.widget.TextView[@text=""]
+    Click Element   xpath=//android.widget.TextView[@text=""]
+    Capture Page Screenshot
+
+#Tocar fora da pagina de transferencia para retornar para home do APP
+When clico em uma posição fora da pagina de Transferencia
+
+    Click Element   accessibility_id=top-header
+    #Tap With Positions    2   548     500
+
+    Sleep    3
 #Validar pesquisa na transferencia
+
+And clico no botão Transferencia
+    Wait until element is visible   xpath=(//android.view.ViewGroup[@class="android.view.ViewGroup"])[17]   10
+    CLick element    xpath=(//android.view.ViewGroup[@class="android.view.ViewGroup"])[17]
+    Capture page screenshot
 
 When digito na pesquisa
     [Arguments]    ${msg}
 
-    Wait until element is visible   xpath=(//android.view.ViewGroup[@class="android.view.ViewGroup"])[17]   10
-    CLick element    xpath=(//android.view.ViewGroup[@class="android.view.ViewGroup"])[17]
-    Capture page screenshot
+
     Wait until element is visible    xpath=//android.view.ViewGroup[@content-desc="card-hero"]
     Click element    css=android.widget.EditText
     Sleep    1
@@ -137,7 +170,10 @@ Then é apresentado apenas o nome
 
     Sleep    1
     Element Text Should Be  xpath=//android.widget.TextView[@text="Tony Stark" and @class="android.widget.TextView"]    ${msg}
+    Capture page screenshot
 
 And não deve apresentar o nome Stan Lee
 
     Page Should Not Contain Element    xpath=//android.widget.TextView[@text="Stan Lee" and @class="android.widget.TextView"]
+    Capture page screenshot    Evidencias//Evi_pesq.png
+
